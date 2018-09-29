@@ -7,6 +7,7 @@ public class PBLinkedList extends PBList {
         size = 1;
     }
 
+    public PBNode getRoot() { return root; }
     //returns size of phone book
     public int size() { return size; }
 
@@ -40,10 +41,29 @@ public class PBLinkedList extends PBList {
         return false;
     }
 
+    //deletes a node at index n
     public boolean delete(int i) {
-        
+
+        if (i == 0) {
+            root = root.getNext();
+            return true;
+        }
+        else {
+            PBNode curr = root;
+            PBNode prev = null;
+            for (int j = 0; j < size; j++) {
+                if (i == j) {
+                    prev.setNext(curr.getNext());
+                    return true;
+                }
+                prev = curr;
+                curr = curr.getNext();
+            }
+        }
+        return false;
     }
 
+    //return the person at index i
     public Person search(int i) {
         PBNode curr = root;
         for (int j=0; j<size; j++) {
@@ -54,9 +74,7 @@ public class PBLinkedList extends PBList {
         return null;
     }
 
-    public void merge() {
-
-    }
+    public void merge() {}
 
     //helper method for finding the index of people with a specific id
     public int searchForID(String id) {

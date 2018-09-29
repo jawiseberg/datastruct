@@ -19,15 +19,33 @@ public class Demo {
         System.out.println(test.search(3));
         test.delete(3);
         System.out.println(test.search(3));
+        System.out.println(prefixCountArrayList(test,"973"));
+
+        PBLinkedList test2 = new PBLinkedList(new PBNode(new Person("Jake", "9736157155")));
+        System.out.println(test2.getRoot().getPerson().getId());
+        test2.addPerson(2, new Person("John", "1234567890"));
+        System.out.println(test2.getRoot().getNext().getPerson().getId());
+        System.out.println(prefixCountLinkedList(test2,"973"));
     }
 
-    /*
     public static int prefixCountArrayList(PBArrayList list, String prefix) {
+        int count = 0;
+        for (int i =0; i<list.size(); i++) {
+            if (list.search(i).getPhoneNums().contains(prefix))
+                count++;
 
+        }
+        return count;
     }
 
     public static int prefixCountLinkedList(PBLinkedList list, String prefix) {
+        int count = 0;
+        for (int i =0; i<list.size(); i++) {
+            if (list.search(i).getPhoneNums().contains(prefix))
+            count++;
 
+        }
+        return count;
     }
-    */
+
 }
