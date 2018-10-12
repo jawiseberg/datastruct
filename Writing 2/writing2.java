@@ -1,22 +1,67 @@
-class Test {
-  private int num;
+class Node {
+  private int data;
+  private Node next;
   
-  public Test(int num) {
-    this.num = num;
+  public Node(int d) { data = d; }
+  
+  public int getData() { return data; }
+  public Node getNext() { return next; }
+  public void setNext(Node n) { next = n; }
+}
+
+class LinkedList {
+  private Node head;
+  
+  public LinkedList(Node h) { head = h; }
+  
+  public Node getHead() { return head; }
+  public void add(Node n) {
+    Node curr = head;
+    while (curr.next != null)
+      curr = curr.next;
+    curr.setNext(n);
+    return true;
   }
+  public void print() {
+    Node curr = head;
+    while (curr.next != null) {
+      System.out.println(curr.getData() + ", ");
+      curr = curr.getNext();
+    }
+  }
+      
   
-  public int getNum() { return num; }
-  
-  public void setNum(int num) { this.num = num; }
-  
+  //reverses linked list using constant memory space
+  public void reverse() {
+    Node curr = head;
+    Node next = head.getNext();
+    Node prev = null;
+    
+    //Base case, if it is the last note, set it to be the head
+    if (curr.getNext() == null) { 
+      head = curr; 
+      curr.setNext() = prev; 
+      return head;
+    }
+    
+    Node next1 = curr.getNext(); 
+    curr.setNext = prev; 
+    reverse(next1, curr); 
+    return head; 
+    
+  }
 }
 
 public class writing2 {
-  
+  /*
   public static void main(String[] args) {
-    Test t = new Test(3);
-    System.out.println(t.getNum());
-    t.setNum(5);
-    System.out.println(t.getNum());
+    LinkedList lst = new LinkedList(new Node(2));
+    lst.add(new Node(3));
+    lst.ddd(new Node(5));
+    System.out.println(lst.print());
+    lst.reverse();
+    System.out.println(lst.print());
+    
   }
+  */
 }
