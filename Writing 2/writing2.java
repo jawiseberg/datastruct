@@ -15,16 +15,16 @@ class LinkedList {
   public LinkedList(Node h) { head = h; }
   
   public Node getHead() { return head; }
-  public void add(Node n) {
+  public boolean add(Node n) {
     Node curr = head;
-    while (curr.next != null)
-      curr = curr.next;
+    while (curr.getNext() != null)
+      curr = curr.getNext();
     curr.setNext(n);
     return true;
   }
   public void print() {
     Node curr = head;
-    while (curr.next != null) {
+    while (curr.getNext() != null) {
       System.out.println(curr.getData() + ", ");
       curr = curr.getNext();
     }
@@ -40,28 +40,25 @@ class LinkedList {
     //Base case, if it is the last note, set it to be the head
     if (curr.getNext() == null) { 
       head = curr; 
-      curr.setNext() = prev; 
-      return head;
+      curr.setNext(prev); 
     }
     
     Node next1 = curr.getNext(); 
-    curr.setNext = prev; 
-    reverse(next1, curr); 
-    return head; 
-    
+    curr.setNext(prev); 
+    reverse(); 
   }
 }
 
 public class writing2 {
-  /*
+  
   public static void main(String[] args) {
     LinkedList lst = new LinkedList(new Node(2));
     lst.add(new Node(3));
-    lst.ddd(new Node(5));
+    lst.add(new Node(5));
     System.out.println(lst.print());
     lst.reverse();
     System.out.println(lst.print());
     
   }
-  */
+  
 }

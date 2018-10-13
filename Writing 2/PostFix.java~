@@ -1,0 +1,12 @@
+public class PostFix {
+  
+  public static void main(String[] args) {
+    String expr = "6+3*2+3";
+    System.out.println(expr);
+    System.out.println(postFixExpr(expr));
+  }
+  
+  public static in postfixExpr(String expr) {
+    
+  }
+}

@@ -33,6 +33,21 @@ class LinkedList {
   
   //reverses linked list using constant memory space
   public void reverse() {
+    Node curr = head;
+    Node next = head.getNext();
+    Node prev = null;
+    
+    //Base case, if it is the last note, set it to be the head
+    if (curr.getNext() == null) { 
+      head = curr; 
+      curr.setNext() = prev; 
+      return head;
+    }
+    
+    Node next1 = curr.getNext(); 
+    curr.setNext = prev; 
+    reverse(next1, curr); 
+    return head; 
     
   }
 }
