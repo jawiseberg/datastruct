@@ -1,0 +1,9 @@
+/* Huffman Encoding:
+ *   1. Open file and collect data (file I/O)
+ *   2. Read through data and collect the different characters and frequencies of each character
+ *   3. Create Huffman tree
+ * 
+ * 
+ */
+
+
