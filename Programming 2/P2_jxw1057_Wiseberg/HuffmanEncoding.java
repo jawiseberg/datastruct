@@ -2,18 +2,19 @@
  *   1. Open file and collect data (file I/O)
  *   2. Read through data and collect the different characters and frequencies of each character
  *   3. Build Huffman tree
- *   4. Print encodings
- *   5. Money
+ *   4. Print encodings as String to deconstruct
+ *   Wasn't able to finish/figure out
+ *   5. Print encodings and trace huffman tree to decompress
+ *   6. Print huffman tree properties
  */
 
 import java.io.*;
-
-
+import java.util.PriorityQueue;
 
 
 public class HuffmanEncoding {
     public static void main(String[] args) {
-        String encoded = huffmanCoder("input.txt", "output.txt");
+        String encoded = huffmanCoder("/Users/jakewiseberg/Documents/datastruct/Programming 2/src/input.txt", "output.txt");
 
     }
 
@@ -23,6 +24,7 @@ public class HuffmanEncoding {
             FileOutputStream fos = new FileOutputStream(outputFileName​);
             DataOutputStream out = new DataOutputStream(new BufferedOutputStream(fos));
 
+            
             //Array of all the characters from the input file
             char[] input = textReader(in);
 
@@ -33,11 +35,12 @@ public class HuffmanEncoding {
 
             HuffmanNode root = buildTree(freq);
 
-            String encoded = compress(root);
+            String encoded = printTree(root);
 
             out.writeUTF(encoded);
             
             System.out.println(encoded);
+            System.out.println("DONE");
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -77,19 +80,38 @@ public class HuffmanEncoding {
 
     //This method uses the frequency array to create the HuffmanNode elements and build the tree
     private static HuffmanNode buildTree(int[] freq) {
-        //for (int i=0; i<freq; i++)
-      return new HuffmanNode('a',3,null,null);
+        // initialze priority queue with minimum as first element, again use 256 for ASCII characters
+        PriorityQueue<HuffmanNode> pq = new PriorityQueue<HuffmanNode>();
+        for (char i = 0; i < 256; i++)
+            if (freq[i] > 0)
+                pq.add(new HuffmanNode(i, freq[i], null, null));
+        // merge two smallest trees
+        while (pq.size() > 1) {
+            HuffmanNode left  = pq.peek();
+            HuffmanNode right = pq.peek();
+            HuffmanNode parent = new HuffmanNode('\0', left.frequency + right.frequency, left, right);
+            pq.add(parent);
+        }
+        return pq.peek();
     }
+    
 
-    private static String compress(HuffmanNode r) {
-      return null;
+    //prints the tree in a readable form to deconstruct
+    private static String printTree(HuffmanNode r) {
+      if (r.isLeaf()) {
+        BinaryStdOut.write(true);
+        BinaryStdOut.write(r.ch, 8);
+        return;
+      }
+      BinaryStdOut.write(false);
+      printTree(r.left);
+      printTree(r.right);
     }
-
-    private static HuffmanNode mergeNodes(HuffmanNode n) {return null;}
+    
 }
 
 
-class HuffmanNode {
+class HuffmanNode extends Comparable{
     private Character inChar;
     public int frequency;
     public HuffmanNode left, right;
@@ -102,6 +124,8 @@ class HuffmanNode {
     }
 
     public Character getInChar() { return inChar; }
+    public boolean isLeaf() { return (left == null && right == null); }
+    
 
 
 }
