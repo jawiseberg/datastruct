@@ -1,0 +1,15 @@
+public class MedianHeap {
+  /* 1. Build max-heap and min-heap
+   * 2. The max-heap contains the half of the elements with smaller values
+   * 3. The min heap contains the half of the elements with bigger values
+   * 4. Compare the amount of nodes in the heap
+   * 5. If the max-heap has more nodes, then the median is the root of the min-heap
+   * 6. If the min-heap has more nodes, then the median is the root of the max-heap
+   * 7. If both heaps have same amount of nodes then the median is the average of the roots of both heaps
+   */
+  
+  
+  
+  
+  
+}
