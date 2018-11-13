@@ -54,7 +54,7 @@ public class Sorting {
    * - larger increments allow for larger "jumps"
    * - end with compleneting the process using subarrays with a increment of 1
    * - complexity is O(n^3/2), depends on increments
-   * TODO --> NEED TO FIX IMPLEMENTATION, gets into a while loop?
+   * TODO --> NEED TO FIX IMPLEMENTATION, gets into a while true loop?
    */
   public static int[] shell(int[] a) {
     int incr = 1;
@@ -117,6 +117,16 @@ public class Sorting {
   }
   
   
+  
+  /* MERGE SORT
+   * 
+   * 
+   * 
+   */
+  public static int[] merge(int[] a) {
+    
+    
+  }
   
   
 /*___________________HELPER METHODS_____________________________*/  

@@ -1,9 +1,17 @@
+/*
+ * TODO
+ * - shell sort
+ * - quick sort
+ * 
+ */
+
+
 public class Sorting {
   
   public static void main(String[] args) {
     int[] random = randomArray();
     printArray(random);
-    printArray(shell(random));
+    printArray(bubble(random));
   }
   
   /* SELECTION SORT
@@ -46,6 +54,7 @@ public class Sorting {
    * - larger increments allow for larger "jumps"
    * - end with compleneting the process using subarrays with a increment of 1
    * - complexity is O(n^3/2), depends on increments
+   * TODO --> NEED TO FIX IMPLEMENTATION, gets into a while loop?
    */
   public static int[] shell(int[] a) {
     int incr = 1;
@@ -68,10 +77,44 @@ public class Sorting {
   }
   
   
+  /* BUBBLE SORT
+   * - it's really easy
+   * - just compare everything and get the highest number to the end
+   * - O(n^2)
+   */ 
+  public static int[] bubble(int[] a) {
+    for (int i=a.length-1; i>0; i--) {
+      for (int j=0; j<i; j++) {
+        if (a[j]>a[j+1]) {
+          swap(a,j,j+1);
+        }
+      }
+    }
+    return a;
+  }
   
   
-  
-  
+  /* QUICK SORT
+   * - divides array to "bubble" faster
+   * - merges the results at the end
+   * - divide and conquer method
+   * - easiest done recursively, need 2 methods
+   */ 
+  public static int[] quick(int[] a) {
+    int i=0;
+    int j=a.length-1;
+    int pivot = (int)(Math.random()*a.length);
+    while (/* NEED TO FIGURE OUT THIS CONDITION */) {
+      while (a[i] >= pivot) {
+        if (a[j] < pivot) {
+          swap(a,i,j);
+        } else { j--; }
+      }
+      i++;
+    } //this while loop is the partition part of the sort
+    
+    
+  }
   
   
   
