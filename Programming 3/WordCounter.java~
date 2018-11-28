@@ -1,13 +1,98 @@
 import java.io.*;
+import java.util.Scanner;
 
 public class WordCounter {
   
   public static void main(String[] args) {
-    
+    wordCount("toyFile.txt", "out.txt");
   }
   
   public static void wordCount(String inputFileName, String outputFileName) {
+    Scanner in = null;
+    FileOutputStream out = null;
+    HashTable h = new HashTable(0);
+    String curr = null;
     
+    try {
+      in = new Scanner(new File(inputFileName));
+      out = new FileOutputStream(outputFileName);
+      
+      //loop where all the words from the text file are read
+      while (in.hasNext()) {
+        curr = in.next();
+        
+        //case 1, word already exists in hash table, add occurance
+        //case 2, word doesn't exist in hash table, create new entry and add occurance of 1
+        //case 3, word doesn't exist in hash table and key already exists, collision handler to insert into table
+        
+        
+      }
+      
+      //loop through each word then add to hashtable
+      //check hashtable for doubles, if doubles add occurrances
+      //ignore case
+      //don't ignore apostraphies
+      
+    } catch (IOException e) { System.out.println(e.toString()); }
+  }
+}
+
+class HashTable{
+  
+  /* TODO
+   * add occurances
+   * add insertion, deletion, and probe methods
+   */
+  
+  private class Entry {
+    private int key;
+    private String word;
+    private boolean removed;
+    
+    private Entry(String w) {
+      key = h(w);
+      word = w;
+      removed = false;
+    }
+  }
+  
+  private Entry[] table;
+  private int tableSize;
+  
+  public HashTable(int size) {
+    table = new Entry[size];
+    tableSize = size;
+  }
+  
+  //hash function
+  public int h(String w) { return Math.abs(w.hashCode()) % tableSize; }
+  
+  //find the index of an open position, returns -1 is table is full
+  public int probe(String w) {
+    int i = h(w);
+    int iterations = 0;
+    while (table[i] != null && !table[i].removed) {
+      i = i % tableSize;
+      iterations++;
+      if (iterations >= tableSize)
+        return -1;
+    }
+    return i;
+  }
+  
+  //finds the position of a word, returns -1 if no key exists TODO
+  public int findKey(String w) {
+    int i = h(w);
+    int iterations = 0;
+    while (table[i] != null) {
+      i = i % tableSize;
+      iterations++;
+      if (!table[i].removed && table[i].key == h(w))
+        return i;
+      if (iterations >= tableSize)
+        return -1;
+    }
+    return i;
   }
   
 }

@@ -1,0 +1,104 @@
+public class Sorting {
+  
+  public static void main(String[] args) {
+    int[] testArr = {2,5,4,3,1,7,6,8,9,0};
+    System.out.println(toString(testArr));
+    heap(testArr, false);
+    System.out.println(toString(testArr));
+  }
+  
+  /*___________________________________________ HEAP SORT ___________________________________________*/
+  
+  public static int[] heap(int[] arr, boolean reverse) {
+    
+    //to reverse the alg this works but I need to figure out how to fix the last element, right now last element in array is max the rest of sorted decreasing when reverse is true
+    int r = 0;
+    if (reverse)
+      r = arr.length-1;
+    
+    //build the max-heap and rearrange the array to reflect this
+    for (int i = arr.length / 2 + 1; i >= 0; i--)
+      buildHeap(arr, arr.length, i);
+    
+    //take the elements one by one from the heap and sort them within the array
+    for (int i=arr.length-1; i >= 0; i--) {
+      swap(arr, r, i); //moves the current root of the heap (the end of the array) to be the first element in the array
+      buildHeap(arr, i, 0); //rebuilds the heap without the extracted element (previously the root of the array)
+    }
+    
+    return arr;
+  }
+  
+  /* builds the max-heap of a subtree given the array
+   * n - the size of the array
+   * the i - the index of the root of the heap
+   */
+  public static void buildHeap(int[] arr, int n, int i) {
+    int max = i; //initially sets the max as the root of the heap
+    int l = 2*i+1; //defines the left child at the index 2*i+1
+    int r = 2*i; //defines the right child at the index 2*i+1
+    
+    //if the left child is larger than the root set the max accordingly
+    if (l < n && arr[l] > arr[max])
+      max = l;
+    
+    //if the right child is larger than the root set the max accordingly
+    if (r < n && arr[r] > arr[max])
+      max = r;
+    
+    //if the max wasn't the root of the tree, swap the max node to the root index, then recursively continue to do this for the rest of the subtree
+    if (max != i) {
+      swap(arr, i, max);
+      buildHeap(arr, n, max);
+    }
+  }
+  
+  /*___________________________________________ QUICK SORT___________________________________________*/
+  public static int[] quick(int[] arr) {
+    int i=0; //current index to bubble
+    int j=arr.length-1; //index bubbling from the second half around the pivot
+    int pivot = (int)(Math.random()*arr.length); //random method for choosing pivot TODO CHOOSE PIVOT WITH ALGORITHM
+    while (/* NEED TO FIGURE OUT THIS CONDITION */) {
+      while (arr[i] >= pivot) {
+        if (arr[j] < pivot) {
+          swap(arr,i,j);
+        } else { j--; }
+      }
+      i++;
+    } //this while loop is the partition part of the sort
+    
+    
+  }
+  /* takes pivot element and puts it in the correct place
+   * moves all elements less than the pivot before it in the array
+   * moves all elements greater than the pivot after it in the array
+   * returns the index of the next pivot
+   */
+  public static int partition(int[] a, int low, int high) {
+    
+  }
+  
+  /*
+  public static int[] merger(int[] arr) {
+    
+  }
+  */
+  
+  
+  /*_____________________ HELPER METHODS _____________________*/
+  
+  //swaps two elements in an array given their indices
+  public static void swap(int[] arr, int i, int j) {
+    int temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+  }
+  //returns a string of the given array in a readable form
+  public static String toString(int[] arr) {
+    String s = "[ ";
+    for (int a : arr)
+      s += a + " ";
+    s += "]";
+    return s;
+  }
+}
