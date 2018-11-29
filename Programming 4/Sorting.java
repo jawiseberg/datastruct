@@ -88,7 +88,7 @@ public class Sorting {
       } while (arr[j] > pivot);
       if (i < j)
         swap(arr,i,j);
-      else return j; //breaks the while true loop once all 
+      else return j; //breaks the while true loop once all elements get swapped as needed
     }
   }
   
@@ -98,12 +98,55 @@ public class Sorting {
   
   
   /*___________________________________________ MERGE SORT __________________________________________*/
-  
-  /*
-  public static void merge(int[] arr) {
+  // n-1 represents the index of the final element of the array (n is the length)
+  public static void merge(int[] arr, int n) {
     
   }
-  */
+  
+  /* helper method that takes the array, middle index, left and right halves and merges the array
+   * arr[l --> m] for left half and arr[m+1 --> r] for right half
+   */
+  public static void mSort(int[] arr, int l, int m, int r) {
+    int i, j, k; //iterative variables through the temp arrays and for merging
+    int n1 = m-l+1; //represents size of left array
+    int n2 = r-m; //size of right array
+    
+    //temporary arrays to merge
+    int[] left = new int[n1];
+    int[] right = new int[n2];
+    
+    //copy data into left and right temporary arrays
+    for (i=0; i<n1; i++)
+      left[i] = arr[l+i];
+    for (j=0; j<n2; j++)
+      right[j] = arr[m+1+j];
+    
+    i=0; j=0; k=l; //reset iterative variables
+    
+    //merge temporary arrays into original
+    //compares the elements in the left array to the elements in the right array and inserts the smaller elements first
+    while (i<n1 && j<n2) {
+      if (left[i] < right[j]) {
+        arr[k] = left[i];
+        i++;
+      } else {
+        arr[k] = right[j];
+        j++;
+      }
+      k++;
+    }
+    
+    //insert the remaining elements from the left array into the original if there are any
+    while (i<n1) {
+      arr[k] = left[i];
+      i++; k++;
+    }
+    //insert the remaining elements from the right array into the original if there are any
+    while (j<n2) {
+      arr[k] = right[j];
+      j++; k++;
+    }
+  }
   
   
   
