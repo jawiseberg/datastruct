@@ -1,0 +1,124 @@
+import java.io.*;
+import java.util.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+public class Reporting1 {
+  public static void main(String[] args) {
+    Sorting s = new Sorting(); //s is what will be used to call the sorting algorithms
+
+    //file i/o stuff
+    String inputFileName = args[0];
+    int lines = 0;
+    Scanner in = null;
+    Scanner inForCount = null;
+    FileWriter outHeap = null;
+    FileWriter outQuick = null;
+    FileWriter outMerge = null;
+
+    //try catch is used for file i/o to dodge unwanted exceptions
+    try {
+      in = new Scanner(new File(inputFileName));
+      inForCount = new Scanner(new File(inputFileName));
+      outHeap = new FileWriter(new File("jxw1057HS.txt")); //heap sort output file
+      outQuick = new FileWriter(new File("jxw1057QS.txt")); //quick sort output file
+      outMerge = new FileWriter(new File("jxw1057MS.txt")); //merge sort output file
+
+      //count number of lines for array size
+      while (inForCount.hasNextLine()) {
+        lines++;
+        try { inForCount.next(); } catch (NoSuchElementException e) {}
+      }
+      
+      int[] arrH = new int[lines-1]; //array to store from file
+      
+      //pull numbers from file and create array
+      for (int i=0; i<arrH.length; i++)
+        arrH[i] = (int)(Integer.valueOf(in.nextLine()));
+      
+      int[] arrQ = arrH;
+      int[] arrM = arrH;
+     
+      //Calendar and time tracking objects
+      SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+      String dateInString = sdf.format(new Date());
+      Date date = null;
+      try { date = sdf.parse(dateInString); } catch(ParseException e) {}
+      Calendar calendar = Calendar.getInstance();
+      
+      outHeap.append("Array: " + s.printArray(arrH) + "/n");
+      
+      //heap sort and track time
+      dateInString = sdf.format(new Date());
+      try { date = sdf.parse(dateInString); } catch(ParseException e) {}
+      calendar = Calendar.getInstance();
+      calendar.setTime(date);
+      long hi = calendar.getTimeInMillis(); //initial time before heap sort
+      
+      s.heap(arrH);
+      
+      dateInString = sdf.format(new Date());
+      try { date = sdf.parse(dateInString); } catch(ParseException e) {}
+      calendar = Calendar.getInstance();
+      calendar.setTime(date);
+      long hf = calendar.getTimeInMillis();
+      
+      long h = hf - hi;
+      
+      System.out.println(hf + " - " + hi + " = " + h);
+      
+      outHeap.append("Sorted: " + s.printArray(arrH) + "\n");
+      outHeap.append("Time in milliseconds: " + h + "\n");
+      
+      //quick
+      dateInString = sdf.format(new Date());
+      try { date = sdf.parse(dateInString); } catch(ParseException e) {}
+      calendar = Calendar.getInstance();
+      calendar.setTime(date);
+      long qi = calendar.getTimeInMillis(); //initial time before heap sort
+      
+      s.quick(arrQ);
+      
+      dateInString = sdf.format(new Date());
+      try { date = sdf.parse(dateInString); } catch(ParseException e) {}
+      calendar = Calendar.getInstance();
+      calendar.setTime(date);
+      long qf = calendar.getTimeInMillis();
+      
+      long q = qf - qi;
+      
+      System.out.println(qf + " - " + qi + " = " + q);
+      
+      outQuick.append("Sorted: " + s.printArray(arrQ) + "\n");
+      outQuick.append("Time in milliseconds: " + q + "\n");
+      
+      //merge
+      dateInString = sdf.format(new Date());
+      try { date = sdf.parse(dateInString); } catch(ParseException e) {}
+      calendar = Calendar.getInstance();
+      calendar.setTime(date);
+      long mi = calendar.getTimeInMillis(); //initial time before heap sort
+      
+      s.merge(arrM);
+      
+      dateInString = sdf.format(new Date());
+      try { date = sdf.parse(dateInString); } catch(ParseException e) {}
+      calendar = Calendar.getInstance();
+      calendar.setTime(date);
+      long mf = calendar.getTimeInMillis();
+      
+      long m = mf - mi;
+      
+      System.out.println(mf + " - " + mi + " = " + m);
+      
+      outMerge.append("Sorted: " + s.printArray(arrM) + "\n");
+      outMerge.append("Time in milliseconds: " + m + "\n");
+      
+      
+      
+      outHeap.close(); outQuick.close(); outMerge.close();
+    } catch (IOException e) { System.out.println(e.toString()); }
+  }
+}

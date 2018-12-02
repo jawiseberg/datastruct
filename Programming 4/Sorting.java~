@@ -1,11 +1,6 @@
 public class Sorting {
   
-  public static void main(String[] args) {
-    int[] testArr = {2,5,4,3,1,7,6,8,9,0};
-    printArray(testArr);
-    quick(testArr);
-    printArray(testArr);
-  }
+  public Sorting() {}
   
   /*___________________________________________ HEAP SORT ___________________________________________*/
   
@@ -88,7 +83,7 @@ public class Sorting {
       } while (arr[j] > pivot);
       if (i < j)
         swap(arr,i,j);
-      else return j; //breaks the while true loop once all 
+      else return j; //breaks the while true loop once all elements get swapped as needed
     }
   }
   
@@ -98,12 +93,67 @@ public class Sorting {
   
   
   /*___________________________________________ MERGE SORT __________________________________________*/
-  
-  /*
+  // n-1 represents the index of the final element of the array (n is the length), iterative implementation
   public static void merge(int[] arr) {
+    int n = arr.length; //sets as length of array to be used later
+    int currSize; //the current size of the arrays to be merged
+    int l,m,r; //the starting index for the left subarray, the endpoint of the left subarray (m+1 is start of right), and endpoint of right subarray
     
+    //merge the arrays starting at arrays with a size of 1 and increasing with each iteration, currSize doubles each pass
+    for (currSize = 1; currSize <= n-1; currSize = 2*currSize) {
+      //determines start and end indeces for different subarrays of size currSize
+      for (l = 0; l < n-1; l += 2*currSize) {
+        m = l + currSize - 1; //endpoint of left subarray, m+1 is startind index of right subarray
+        r = Math.min(l+2*currSize-1, n-1); //sets endpoint of right subarray to either the end of the original array or if a subarray accounted for accordingly
+        mSort(arr,l,m,r); //merge subarrays accordingly
+      }
+    }
   }
-  */
+  
+  /* helper method that takes the array, middle index, left and right halves and merges the array
+   * arr[l --> m] for left half and arr[m+1 --> r] for right half
+   */
+  public static void mSort(int[] arr, int l, int m, int r) {
+    int i, j, k; //iterative variables through the temp arrays and for merging
+    int n1 = m-l+1; //represents size of left array
+    int n2 = r-m; //size of right array
+    
+    //temporary arrays to merge
+    int[] left = new int[n1];
+    int[] right = new int[n2];
+    
+    //copy data into left and right temporary arrays
+    for (i=0; i<n1; i++)
+      left[i] = arr[l+i];
+    for (j=0; j<n2; j++)
+      right[j] = arr[m+1+j];
+    
+    i=0; j=0; k=l; //reset iterative variables
+    
+    //merge temporary arrays into original
+    //compares the elements in the left array to the elements in the right array and inserts the smaller elements first
+    while (i<n1 && j<n2) {
+      if (left[i] < right[j]) {
+        arr[k] = left[i];
+        i++;
+      } else {
+        arr[k] = right[j];
+        j++;
+      }
+      k++;
+    }
+    
+    //insert the remaining elements from the left array into the original if there are any
+    while (i<n1) {
+      arr[k] = left[i];
+      i++; k++;
+    }
+    //insert the remaining elements from the right array into the original if there are any
+    while (j<n2) {
+      arr[k] = right[j];
+      j++; k++;
+    }
+  }
   
   
   

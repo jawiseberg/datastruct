@@ -1,0 +1,29 @@
+public class RandomArrays {
+  
+  private int size;
+  public int[][] test; //it's public so the averages can be calculated
+  
+  public RandomArray(int s) {
+    size = s;
+    test = new int[100][size];
+    createMatrix();
+  }
+  
+  //getter method for array
+  public int[][] getArray() { return test; }
+  
+  //adds a bunch of random arrays to an bigger array
+  public void createMatrix() {
+    for (int i=0; i<test.length; i++)
+      test[i] = generate();
+  }
+  
+  //random array generator
+  public int[] generate() {
+    int[] arr = new int[size];
+    for (int i=0; i<size; i++)
+      arr[i] = (int)(Math.random()*1000);
+    return arr;
+  }
+  
+}

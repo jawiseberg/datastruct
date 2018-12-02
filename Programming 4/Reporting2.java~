@@ -1,0 +1,40 @@
+import java.io.*;
+import java.util.*;
+
+public class Reporting2 {
+  public static void main(String[] args) {
+    Sorting s = new Sorting(); //s is what will be used to call the sorting algorithms
+    
+    //file i/o stuff
+    String inputFileName = args[0];
+    Scanner in = null;
+    FileWriter outHeap = null;
+    FileWriter outQuick = null;
+    FileWriter outMerge = null;
+    
+    //try catch is used for file i/o to dodge unwanted exceptions
+    try {
+      in = new Scanner(new File(inputFileName));
+      outHeap = new FileWriter(new File("jxw1057HS.txt")); //heap sort output file
+      outQuick = new FileWriter(new File("jxw1057QS.txt")); //quick sort output file
+      outMerge = new FileWriter(new File("jxw1057MS.txt")); //merge sort output file
+      
+      ArrayList<Integer> arrList = new ArrayList<Integer>(100); //used array list temporarily to add numbers from in file and increase size as more are added
+      
+      //read data from in file and copy to array for sorting
+      while (in.hasNextLine())
+        arrList.add(Integer.valueOf(in.nextLine()));
+      
+      int[] arr = new int[arrList.size()];
+      
+      System.out.println(arrList.size());
+      
+      for (int i=0; i<arrList.size(); i++)
+        System.out.println(arrList.get(i));
+        //arr[i] = arrList.get(i).valueOf();
+      
+      s.printArray(arr);
+      
+    } catch (IOException e) { System.out.println(e.toString()); }
+  }
+}

@@ -1,0 +1,3 @@
+Heap sort average runtime in nanoseconds: 136041
+Quick sort average runtime in nanoseconds: 98440
+Merge sort average runtime in nanoseconds: 48911
