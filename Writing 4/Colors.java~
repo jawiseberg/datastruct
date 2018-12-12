@@ -1,0 +1,20 @@
+public class Colors {
+  public static void main(String[] args) {
+    
+  }
+  
+  public 
+  
+}
+
+class RedBlue {
+  
+  String color;
+  int value;
+  
+  public RedBlue(String c, int v) {
+    color = c;
+    value = v;
+  }
+  
+}
